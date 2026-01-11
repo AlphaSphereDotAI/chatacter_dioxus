@@ -36,7 +36,7 @@
   # services.postgres.enable = true;
 
   # https://devenv.sh/scripts/
-scripts = {
+  scripts = {
     build-web.exec = ''
       echo "Building web with Reflex"
       ${lib.getExe pkgs.cargo} build --release
