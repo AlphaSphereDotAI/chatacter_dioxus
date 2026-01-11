@@ -36,13 +36,23 @@
   # services.postgres.enable = true;
 
   # https://devenv.sh/scripts/
-  scripts.hello.exec = ''
-    echo hello from $GREET
-  '';
+scripts = {
+    build-web.exec = ''
+      echo "Building web with Reflex"
+      ${lib.getExe pkgs.cargo} build --release
+    '';
+    compatibility-check.exec = ''
+      echo "Checking compatibility"
+      ${lib.getExe pkgs.cargo} check
+    '';
+    start-dev.exec = ''
+      echo "Starting development server"
+      ${lib.getExe pkgs.dioxus-cli} serve
+    '';
+  };
 
   # https://devenv.sh/basics/
   enterShell = ''
-    hello
     ${lib.getExe pkgs.git} --version
     ${lib.getExe pkgs.rustc} --version
     ${lib.getExe pkgs.cargo} --version
